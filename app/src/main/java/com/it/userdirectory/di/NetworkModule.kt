@@ -1,6 +1,13 @@
 package com.it.userdirectory.di
 
+import com.it.userdirectory.data.datasource.PostDataSource
+import com.it.userdirectory.data.datasource.UsersDataSource
+import com.it.userdirectory.data.repository.PostRepositoryImpl
+import com.it.userdirectory.data.repository.UserRepositoryImpl
 import com.it.userdirectory.domain.network.NetworkUrlProvider
+import com.it.userdirectory.domain.repository.PostRepository
+import com.it.userdirectory.domain.repository.UserRepository
+import com.it.userdirectory.domain.usecase.UserUseCase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -47,4 +54,43 @@ class NetworkModule {
             .addConverterFactory(converter)
             .build()
     }
+
+
+    @Provides
+    @Singleton
+    fun provideListApiService(retrofit: Retrofit) : UsersDataSource {
+        return retrofit.create(UsersDataSource::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providerUserRepository(
+        datasource: UsersDataSource
+    ) : UserRepository {
+        return UserRepositoryImpl(datasource)
+    }
+
+    @Provides
+    @Singleton
+    fun providePostApiService(retrofit: Retrofit) : PostDataSource {
+        return retrofit.create(PostDataSource::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providerPostRepository(
+        datasource: PostDataSource
+    ) : PostRepository {
+        return PostRepositoryImpl(datasource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserUsecase(repository: UserRepository): UserUseCase {
+        return UserUseCase(repository)
+    }
+
+
+
+
 }
