@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="redcolor">#B50606</color>
+    <color name="amber">#FFC107</color>
+    <color name="cyan">#0F6666</color>
+    <color name="buttontransparent">#00000000</color>
+    <color name="disablecolor">#A9FBF8F8</color>
+    <color name="custom_black">#C6786F6F</color>
+    <color name="lightgrey">#F2F3F5</color>
+    <color name="filecolor">#20B9E3</color>
+    <color name="inventorycolor">#E39920</color>
+    <color name="reportcolor">#1CB98C</color>
+    <color name="clearcolor">#8D0F0F</color>
+    <color name="halfwhite">#E8FBF8F8</color>
+
+
+
+    <color name="black_transparent">#CC1B1919</color>
+    <color name="dialogBackground">#60000000</color>
+    <color name="colorPrimary">#FFFFFFFF</color>
+    <color name="colorPrimaryDark">#70000000</color>
+    <color name="successcolor">#008080</color>
+
+</resources>
