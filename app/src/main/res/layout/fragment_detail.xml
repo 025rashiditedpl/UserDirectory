@@ -30,7 +30,7 @@
                 android:src="@drawable/back_icon"
                 android:layout_gravity="start"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="10dp"/>
+                android:layout_marginTop="15dp"/>
 
             <ImageView
                 android:id="@+id/profileImage"
@@ -150,10 +150,11 @@
 
                 <TextView
                     android:id="@+id/errortxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="something went wrong"
+                    android:gravity="center_horizontal"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
@@ -168,6 +169,7 @@
                     android:paddingHorizontal="20dp"
                     android:textSize="16sp"
                     android:textColor="@color/white"/>
+
 
             </LinearLayout>
         </FrameLayout>

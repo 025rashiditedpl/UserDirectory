@@ -27,6 +27,7 @@ class PostListAdapter(val context: Context): ListAdapter<PostResponseItem, PostL
         return MyViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
 
         val data=getItem(position)
