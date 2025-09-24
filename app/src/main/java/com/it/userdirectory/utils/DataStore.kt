@@ -35,7 +35,4 @@ class DataStore(private val context: Context) {
             }
         }
 
-    suspend fun clearUser() {
-        context.dataStore.edit { it.remove(USER_KEY) }
-    }
 }

@@ -31,11 +31,14 @@ class ListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater, container, false)
         datastore= DataStore(requireActivity())
         setupRecyclerView()
-        setupSwipeRefresh()
+
 
         getListData()
 
         binding!!.retrybtn.setOnClickListener {
+            getListData()
+        }
+        binding!!.swipeRefreshLayout.setOnRefreshListener {
             getListData()
         }
         return binding!!.root
@@ -51,12 +54,6 @@ class ListFragment : Fragment() {
         }
         binding!!.userlistview.layoutManager = LinearLayoutManager(requireActivity())
         binding!!.userlistview.adapter = adapter
-    }
-
-    private fun setupSwipeRefresh() {
-        binding!!.swipeRefreshLayout.setOnRefreshListener {
-            getListData()
-        }
     }
 
     private fun getListData() {
