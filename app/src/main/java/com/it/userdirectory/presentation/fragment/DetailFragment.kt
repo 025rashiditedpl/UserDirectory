@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.it.userdirectory.R
 import com.it.userdirectory.databinding.FragmentDetailBinding
+import com.it.userdirectory.presentation.activity.MainActivity
 import com.it.userdirectory.presentation.adapter.PostListAdapter
 import com.it.userdirectory.presentation.adapter.UserListAdapter
 import com.it.userdirectory.presentation.state.DetailUiState
@@ -42,6 +43,9 @@ class DetailFragment : Fragment() {
 
         binding!!.retrybtn.setOnClickListener {
             getPostList(userId)
+        }
+        binding!!.backclick.setOnClickListener {
+            (activity as MainActivity).onBackPressed()
         }
 
         return binding!!.root
