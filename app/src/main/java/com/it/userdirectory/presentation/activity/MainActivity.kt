@@ -8,7 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.it.userdirectory.R
 import com.it.userdirectory.databinding.ActivityMainBinding
 import com.it.userdirectory.presentation.navigation.ScreenNavigation.Companion.listScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
 
-    fun getPosts(userId: String?): Flow<NetworkResult<List<PostResponseItem>>>
+    fun getPosts(userId: Int?): Flow<NetworkResult<List<PostResponseItem>>>
 }

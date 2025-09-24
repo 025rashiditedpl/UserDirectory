@@ -7,6 +7,7 @@ import com.it.userdirectory.data.repository.UserRepositoryImpl
 import com.it.userdirectory.domain.network.NetworkUrlProvider
 import com.it.userdirectory.domain.repository.PostRepository
 import com.it.userdirectory.domain.repository.UserRepository
+import com.it.userdirectory.domain.usecase.PostUseCase
 import com.it.userdirectory.domain.usecase.UserUseCase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -86,10 +87,15 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserUsecase(repository: UserRepository): UserUseCase {
+    fun provideUserUseCase(repository: UserRepository): UserUseCase {
         return UserUseCase(repository)
     }
 
+    @Provides
+    @Singleton
+    fun providePostUseCase(repository: PostRepository): PostUseCase {
+        return PostUseCase(repository)
+    }
 
 
 
