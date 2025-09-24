@@ -9,6 +9,7 @@ import com.it.userdirectory.domain.repository.PostRepository
 import com.it.userdirectory.domain.repository.UserRepository
 import com.it.userdirectory.domain.usecase.PostUseCase
 import com.it.userdirectory.domain.usecase.UserUseCase
+import com.it.userdirectory.utils.Constants.CONTENT_TYPE_KEY
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -48,7 +49,7 @@ class NetworkModule {
         httpClient: OkHttpClient
     ) : Retrofit {
         val networkJson = Json { ignoreUnknownKeys = true }
-        val converter= networkJson.asConverterFactory("application/json".toMediaType())
+        val converter= networkJson.asConverterFactory(CONTENT_TYPE_KEY.toMediaType())
         return Retrofit.Builder()
             .baseUrl(NetworkUrlProvider.BASE_URL)
             .client(httpClient)

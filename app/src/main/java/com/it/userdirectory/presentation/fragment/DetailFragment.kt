@@ -62,6 +62,7 @@ class DetailFragment : Fragment() {
 
                     }
                     is DetailUiState.Success -> {
+                        delay(350)
                         binding!!.loadingbar.visibility= View.INVISIBLE
                         binding!!.postsRecyclerView.visibility= View.VISIBLE
                         binding!!.errorLayout.visibility= View.INVISIBLE
@@ -89,7 +90,7 @@ class DetailFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewLifecycleOwner.lifecycleScope.launch {
-            datastore.getUser.collect {userInfo->
+                datastore.getUser.collect {userInfo->
                 binding!!.fullName.text = userInfo?.username
                 binding!!.username.text = userInfo?.username
                 binding!!.email.text = userInfo?.email

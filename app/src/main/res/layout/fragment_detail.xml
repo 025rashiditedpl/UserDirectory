@@ -40,14 +40,14 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholderprofile"
                 android:background="@drawable/circle_background"
-                android:contentDescription="profile picture" />
+               />
 
 
             <TextView
                 android:id="@+id/fullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="full name"
+                android:text=""
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/black"
@@ -57,7 +57,7 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="username"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/lightgrey"
                 android:layout_marginBottom="16dp"/>
@@ -70,7 +70,7 @@
                 android:drawableStart="@drawable/ic_email"
                 android:drawableTint="@color/inventorycolor"
                 android:drawablePadding="8dp"
-                android:text="email@gmail.com"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:autoLink="email"
@@ -86,7 +86,7 @@
                 android:drawableStart="@drawable/ic_phone"
                 android:drawableTint="@color/successcolor"
                 android:drawablePadding="8dp"
-                android:text="+1 234 567 890"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/successcolor"
                 android:autoLink="phone"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/linkicon"
                 android:drawablePadding="8dp"
-                android:text="www.example.com"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="@color/inventorycolor"
                 android:autoLink="web"
