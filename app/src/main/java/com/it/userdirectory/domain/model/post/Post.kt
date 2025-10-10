@@ -1,11 +1,10 @@
 package com.it.userdirectory.domain.model.post
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostResponseItem(
+data class Post(
     @SerialName("body")
     val body: String?,
     @SerialName("id")

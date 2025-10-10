@@ -18,19 +18,15 @@ class UserViewModel  @Inject constructor (private val useCase: UserUseCase) : Vi
     val uiState = _uiState.asStateFlow()
 
 
-    fun getUserList()=viewModelScope.launch {
-        try {
-           useCase.invoke().collect {result ->
-               when(result){
-
-                   is NetworkResult.Loading -> _uiState.value= ListUiState.Loading
-                   is NetworkResult.Success -> _uiState.value= ListUiState.Success(result.data)
-                   is NetworkResult.Error -> _uiState.value= ListUiState.Error(result.message ?:"Something Went Wrong")
-               }
-           }
-        }catch (e: Exception){
-            _uiState.value= ListUiState.Error(e.message?:"")
+    fun getUserList() {
+        viewModelScope.launch {
+            useCase.invoke().collect { result ->
+                _uiState.value = when (result) {
+                    is NetworkResult.Loading -> ListUiState.Loading
+                    is NetworkResult.Success -> ListUiState.Success(result.data)
+                    is NetworkResult.Error -> ListUiState.Error(result.message)
+                }
+            }
         }
-
     }
 }

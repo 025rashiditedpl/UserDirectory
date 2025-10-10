@@ -33,13 +33,13 @@ class ListFragment : Fragment() {
         setupRecyclerView()
 
 
-        getListData()
+        loadUsers()
 
         binding!!.retrybtn.setOnClickListener {
-            getListData()
+           loadUsers()
         }
         binding!!.swipeRefreshLayout.setOnRefreshListener {
-            getListData()
+          loadUsers()
         }
         return binding!!.root
     }
@@ -56,35 +56,42 @@ class ListFragment : Fragment() {
         binding!!.userlistview.adapter = adapter
     }
 
-    private fun getListData() {
-        viewModel.getUserList()
+    private fun loadUsers(){
         lifecycleScope.launchWhenStarted {
+            viewModel.getUserList()
             viewModel.uiState.collect { state ->
-                when (state) {
-                    is ListUiState.Loading -> {
-                        if (!binding!!.swipeRefreshLayout.isRefreshing) {
-                            binding!!.loadingbar.visibility = View.VISIBLE
-                        }
-                        binding!!.userlistview.visibility = View.INVISIBLE
-                        binding!!.errorLayout.visibility = View.INVISIBLE
+                renderState(state)
+            }
+        }
+    }
+    private fun renderState(state: ListUiState) {
+        with(binding!!) {
+            when (state) {
+                is ListUiState.Loading -> {
+                    if (!binding!!.swipeRefreshLayout.isRefreshing) {
+                        binding!!.loadingbar.visibility = View.VISIBLE
                     }
-                    is ListUiState.Success -> {
-                        binding!!.loadingbar.visibility = View.INVISIBLE
-                        binding!!.swipeRefreshLayout.isRefreshing = false
-                        binding!!.userlistview.visibility = View.VISIBLE
-                        binding!!.errorLayout.visibility = View.INVISIBLE
+                    binding!!.userlistview.visibility = View.INVISIBLE
+                    binding!!.errorLayout.visibility = View.INVISIBLE
+                }
+                is ListUiState.Success -> {
+                    binding!!.loadingbar.visibility = View.INVISIBLE
+                    binding!!.swipeRefreshLayout.isRefreshing = false
+                    binding!!.userlistview.visibility = View.VISIBLE
+                    binding!!.errorLayout.visibility = View.INVISIBLE
 
-                        adapter.submitList(state.data)
-                    }
-                    is ListUiState.Error -> {
-                        binding!!.loadingbar.visibility = View.INVISIBLE
-                        binding!!.swipeRefreshLayout.isRefreshing = false
-                        binding!!.userlistview.visibility = View.INVISIBLE
-                        binding!!.errorLayout.visibility = View.VISIBLE
-                        binding!!.errortxt.text = state.message
-                    }
+                    adapter.submitList(state.data)
+                }
+                is ListUiState.Error -> {
+                    binding!!.loadingbar.visibility = View.INVISIBLE
+                    binding!!.swipeRefreshLayout.isRefreshing = false
+                    binding!!.userlistview.visibility = View.INVISIBLE
+                    binding!!.errorLayout.visibility = View.VISIBLE
+                    binding!!.errortxt.text = state.message
                 }
             }
         }
     }
+
+
 }

@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.it.userdirectory.domain.model.users.UsersResponseItem
+import com.it.userdirectory.domain.model.user.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
@@ -17,18 +17,18 @@ class DataStore(private val context: Context) {
         private val USER_KEY = stringPreferencesKey("user_item")
     }
 
-    suspend fun saveUser(user: UsersResponseItem) {
+    suspend fun saveUser(user: User) {
         val json = Json.encodeToString(user)
         context.dataStore.edit { prefs ->
             prefs[USER_KEY] = json
         }
     }
 
-    val getUser: Flow<UsersResponseItem?> = context.dataStore.data
+    val getUser: Flow<User?> = context.dataStore.data
         .map { prefs ->
             prefs[USER_KEY]?.let { json ->
                 try {
-                    Json.decodeFromString<UsersResponseItem>(json)
+                    Json.decodeFromString<User>(json)
                 } catch (e: Exception) {
                     null
                 }

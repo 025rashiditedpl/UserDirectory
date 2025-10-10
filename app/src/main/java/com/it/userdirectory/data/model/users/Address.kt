@@ -1,4 +1,4 @@
-package com.it.userdirectory.domain.model.users
+package com.it.userdirectory.data.model.users
 
 
 import kotlinx.serialization.SerialName

@@ -19,19 +19,17 @@ class PostViewModel @Inject constructor(private val useCase: PostUseCase): ViewM
     val uiState = _uiState.asStateFlow()
 
 
-    fun getPostList(userId: Int?)=viewModelScope.launch {
-        try {
-            useCase.invoke(userId).collect {result ->
-                when(result){
-
-                    is NetworkResult.Loading -> _uiState.value= DetailUiState.Loading
-                    is NetworkResult.Success -> _uiState.value= DetailUiState.Success(result.data)
-                    is NetworkResult.Error -> _uiState.value= DetailUiState.Error(result.message ?:"Something Went Wrong")
+    fun getPostList(userId: Int?) {
+        viewModelScope.launch {
+            useCase.invoke(userId).collect { result ->
+                _uiState.value = when (result) {
+                    is NetworkResult.Loading -> DetailUiState.Loading
+                    is NetworkResult.Success -> DetailUiState.Success(result.data)
+                    is NetworkResult.Error -> DetailUiState.Error(result.message)
                 }
             }
-        }catch (e: Exception){
-            _uiState.value= DetailUiState.Error(e.message?:"")
         }
-
     }
+
+
 }

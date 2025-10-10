@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.it.userdirectory.R
+import com.it.userdirectory.domain.model.user.User
 import com.it.userdirectory.databinding.UsersItemLayoutBinding
-import com.it.userdirectory.domain.model.users.UsersResponseItem
 
-class UserListAdapter(val context: Context,val onclick:(UsersResponseItem)->Unit): ListAdapter<UsersResponseItem, UserListAdapter.MyViewHolder>(UserlistDiffCallback())  {
+class UserListAdapter(val context: Context,val onclick:(User)->Unit): ListAdapter<User, UserListAdapter.MyViewHolder>(UserlistDiffCallback())  {
 
     private var lastPosition = -1
     override fun onCreateViewHolder(
@@ -55,12 +55,12 @@ class UserListAdapter(val context: Context,val onclick:(UsersResponseItem)->Unit
 
     inner  class MyViewHolder(val binding: UsersItemLayoutBinding): RecyclerView.ViewHolder(binding.root)
 
-    class UserlistDiffCallback : DiffUtil.ItemCallback<UsersResponseItem>() {
-        override fun areItemsTheSame(oldItem: UsersResponseItem, newItem: UsersResponseItem): Boolean {
+    class UserlistDiffCallback : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: UsersResponseItem, newItem: UsersResponseItem): Boolean {
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
     }

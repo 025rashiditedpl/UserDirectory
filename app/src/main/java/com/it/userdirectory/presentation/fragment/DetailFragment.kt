@@ -42,7 +42,7 @@ class DetailFragment : Fragment() {
        setUpRecyclerView()
 
         binding!!.retrybtn.setOnClickListener {
-            getPostList(userId)
+            loadPostData(userId)
         }
         binding!!.backclick.setOnClickListener {
             (activity as MainActivity).onBackPressed()
@@ -50,37 +50,45 @@ class DetailFragment : Fragment() {
 
         return binding!!.root
     }
-    private fun getPostList(userId: Int?){
-        viewModel.getPostList(userId)
+    private fun loadPostData(userId: Int?){
         lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect {state ->
-                when (state) {
-                    is DetailUiState.Loading -> {
-                        binding!!.loadingbar.visibility= View.VISIBLE
-                        binding!!.postsRecyclerView.visibility= View.INVISIBLE
-                        binding!!.errorLayout.visibility= View.INVISIBLE
-
-                    }
-                    is DetailUiState.Success -> {
-                        delay(350)
-                        binding!!.loadingbar.visibility= View.INVISIBLE
-                        binding!!.postsRecyclerView.visibility= View.VISIBLE
-                        binding!!.errorLayout.visibility= View.INVISIBLE
-                        adapter.submitList(state.data)
-                    }
-                    is DetailUiState.Error -> {
-                        binding!!.loadingbar.visibility= View.INVISIBLE
-                        binding!!.postsRecyclerView.visibility= View.INVISIBLE
-                        binding!!.errorLayout.visibility= View.VISIBLE
-                        binding!!.errortxt.text=state.message
-                        Log.d("error","${state.message}")
-                    }
-                }
-
+            viewModel.getPostList(userId)
+            viewModel.uiState.collect { state ->
+                renderState(state)
             }
         }
-
     }
+    private suspend fun renderState(state: DetailUiState){
+          with(binding!!){
+              when(state){
+                  is DetailUiState.Loading -> {
+                      binding!!.loadingbar.visibility= View.VISIBLE
+                      binding!!.postsRecyclerView.visibility= View.INVISIBLE
+                      binding!!.errorLayout.visibility= View.INVISIBLE
+
+                  }
+                  is DetailUiState.Success ->{
+                      delay(350)
+                      binding!!.loadingbar.visibility= View.INVISIBLE
+                      binding!!.postsRecyclerView.visibility= View.VISIBLE
+                      binding!!.errorLayout.visibility= View.INVISIBLE
+                      adapter.submitList(state.data)
+                  }
+
+                  is DetailUiState.Error ->{
+                      binding!!.loadingbar.visibility= View.INVISIBLE
+                      binding!!.postsRecyclerView.visibility= View.INVISIBLE
+                      binding!!.errorLayout.visibility= View.VISIBLE
+                      binding!!.errortxt.text=state.message
+                      Log.d("error","${state.message}")
+                  }
+              }
+          }
+    }
+
+
+
+
     private fun setUpRecyclerView(){
         adapter= PostListAdapter(requireActivity())
         binding!!.postsRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -98,7 +106,7 @@ class DetailFragment : Fragment() {
                 binding!!.website.text = userInfo?.website
                 userId=userInfo?.id
                 Log.d("myuserId","$userId")
-                getPostList(userId)
+                loadPostData(userId)
             }
         }
     }

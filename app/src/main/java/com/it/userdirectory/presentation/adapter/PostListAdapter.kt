@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.it.userdirectory.R
 import com.it.userdirectory.databinding.PostItemLayoutBinding
-import com.it.userdirectory.databinding.UsersItemLayoutBinding
-import com.it.userdirectory.domain.model.post.PostResponseItem
-import com.it.userdirectory.domain.model.users.UsersResponseItem
-import com.it.userdirectory.presentation.adapter.UserListAdapter.UserlistDiffCallback
+import com.it.userdirectory.data.model.post.PostResponseItem
+import com.it.userdirectory.domain.model.post.Post
 
-class PostListAdapter(val context: Context): ListAdapter<PostResponseItem, PostListAdapter.MyViewHolder>(PostlistDiffCallback()) {
+class PostListAdapter(val context: Context): ListAdapter<Post, PostListAdapter.MyViewHolder>(PostlistDiffCallback()) {
     private var lastPosition = -1
 
     override fun onCreateViewHolder(
@@ -51,12 +49,12 @@ class PostListAdapter(val context: Context): ListAdapter<PostResponseItem, PostL
         holder.itemView.clearAnimation()
     }
     inner  class MyViewHolder(val binding: PostItemLayoutBinding): RecyclerView.ViewHolder(binding.root)
-    class PostlistDiffCallback : DiffUtil.ItemCallback<PostResponseItem>() {
-        override fun areItemsTheSame(oldItem: PostResponseItem, newItem: PostResponseItem): Boolean {
+    class PostlistDiffCallback : DiffUtil.ItemCallback<Post>() {
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: PostResponseItem, newItem: PostResponseItem): Boolean {
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem == newItem
         }
     }
